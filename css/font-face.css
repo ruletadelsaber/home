@@ -1,7 +1,7 @@
 @font-face {
     font-family 'Montserrat';
-    src url('fontsmontserrat.otf') format('otf2'),  Ruta al archivo otf 
-         url('fontsmontserrat.otf') format('otf');  Ruta al archivo otf
+    src url('fonts/montserrat.otf') format('otf2'),  Ruta al archivo otf 
+         url('fonts/montserrat.otf') format('otf');  Ruta al archivo otf
      Puedes agregar más formatos de archivo si lo deseas 
     font-weight normal;
     font-style normal;
