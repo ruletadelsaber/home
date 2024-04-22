@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruleta del Saber</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-image: url('img/fondo.jpg'); /* Ruta de la imagen */
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centra horizontalmente los elementos */
+            justify-content: flex-start;
+            height: 100vh;
+            padding: 20px;
+        }
+        #message {
+            text-align: center;
+            font-size: 24px;
+            color: #ffffff;
+            margin-bottom: 10px; /* Espacio debajo del mensaje */
+            font-weight: bold; /* Texto en negrita */
+            background-color: #ff0000; /* Fondo rojo */
+            padding: 20px; /* Espaciado interno */
+            border-radius: 20px; /* Bordes redondeados */
+        }
+        #buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 5px; /* Separación de 5px con la ruleta */
+        }
+        .button {
+            margin-bottom: 10px;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 20px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            width: 200px; /* Ancho del botón */
+            height: 50px; /* Alto del botón */
+            text-align: center;
+        }
+        .button:hover {
+            background-color: #ff0000;
+        }
+
+        .wheel-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 5px; /* Separación de 5px con los botones */
+        }
+
+        .wheel {
+            width: 500px; /* Tamaño de la ruleta */
+            height: auto;
+            animation: spin 20s linear infinite; /* Animación de giro continuo */
+        }
+
+        .marker {
+            width: 500px; /* Tamaño de la ruleta */
+            height: auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="message">
+            ¡Te reto a ingresar en alguna asignatura y hacer girar la Ruleta del Saber! <br>
+            Prepárate para el éxito en la Prueba SABER 11° mientras exploras y aprendes.
+        </div>
+        <div id="buttons">
+            <button class="button" onclick="window.open('https://ruletadelsaber.github.io/matematicas', '_blank')">MATEMÁTICAS</button>
+            <button class="button" onclick="window.open('https://ruletadelsaber.github.io/lecturacritica', '_blank')">LECTURA CRÍTICA</button>
+            <button class="button" onclick="window.open('https://ruletadelsaber.github.io/biologia', '_blank')">BIOLOGÍA</button>
+            <button class="button" onclick="window.open('https://ruletadelsaber.github.io/quimica', '_blank')">QUÍMICA</button>
+            <button class="button" onclick="window.open('https://ruletadelsaber.github.io/fisica', '_blank')">FÍSICA</button>
+            <button class="button" onclick="window.open('https://ruletadelsaber.github.io/sociales', '_blank')">C. SOCIALES</button>
+            <button class="button" onclick="window.open('https://ruletadelsaber.github.io/ingles', '_blank')">INGLÉS</button>
+        </div>
+        <div class="wheel-wrap">
+            <img class="wheel" src="img/ruleta1.png" alt="Ruleta del Saber">
+        </div>
+    </div>
+
+    <!-- Se incluye jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Se incluye el script proporcionado -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.transit/0.9.12/jquery.transit.min.js"></script>
+
+    <script type="text/javascript">//<![CDATA[ 
+        $(function(){
+            window.RULETA = {
+                cache: {},
+
+                init: function () {
+                    var _this = this;
+                    this.cache.wheel = $('.wheel');
+                    this.cache.wheelMarker = $('.marker');
+                    this.cache.wheelSpinBtn = $('.marker'); // Usamos la rueda como botón de giro, puedes cambiarlo a un botón si prefieres.
+
+                    // Mapeo de premios
+                    this.cache.wheelMapping = [1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7];
+
+                    // Inicia la animación automática
+                    this.autoSpin();
+
+                    // Configura eventos de premios
+                    this.prizeEvents();
+                },
+
+                autoSpin: function () {
+                    var _this = this;
+                    // Duración de la animación en milisegundos
+                    var duration = 8000; // Puedes ajustar la duración según tu preferencia
+
+                    // Calcula el ángulo de giro aleatorio
+                    var girar = Math.round(Math.random() * 11);
+                    var valorcolor = girar * 26 + 5; // Ajusta este valor según tus necesidades
+                    var deg1 = 720 + valorcolor;
+
+                    // Realiza la animación de giro continuo
+                    _this.cache.wheel.transition({
+                        rotate: deg1 + 'deg'
+                    }, duration, 'linear', function() {
+                        // Cuando la animación termina, inicia otra vez
+                        _this.autoSpin();
+                    });
+                },
+
+                prizeEvents: function () {
+                    // Aquí puedes definir eventos relacionados con los premios si es necesario
+                }
+            }
+
+            window.RULETA.init();
+        });//]]>  
+    </script>
+</body>
+</html>
